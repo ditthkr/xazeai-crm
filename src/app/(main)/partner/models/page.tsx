@@ -33,7 +33,7 @@ export default async function ModelsPage() {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Name</TableHead>
-                                    <TableHead className="text-right">Rate (per token)</TableHead>
+                                    <TableHead className="text-right">Rate (USD / 1M Token)</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>

@@ -110,7 +110,7 @@ export function CreateTenantDialog({ models }: { models: PartnerModel[] }) {
                                 <SelectContent className="w-full min-w-0">
                                     {models.map((model) => (
                                         <SelectItem key={model.id} value={model.id}>
-                                            {model.name} ({parseFloat(model.rate).toFixed(4)})
+                                            {model.name} ({parseFloat(model.rate).toFixed(4)} USD/1M Token)
                                         </SelectItem>
                                     ))}
                                 </SelectContent>

@@ -47,7 +47,7 @@ export const getColumns = (models: PartnerModel[]): ColumnDef<PartnerTenant>[] =
     {
         accessorKey: "rate.final_rate",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Final Rate" className="text-right" />
+            <DataTableColumnHeader column={column} title="Final Rate (USD / 1M Token)" className="text-right" />
         ),
         cell: ({ row }) => {
             const rate = parseFloat(row.original.rate.final_rate);

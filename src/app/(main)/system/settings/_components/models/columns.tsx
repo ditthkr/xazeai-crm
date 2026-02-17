@@ -38,7 +38,7 @@ export const modelColumns: ColumnDef<SystemModel>[] = [
     {
         accessorKey: "base_cost",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Base Cost" />
+            <DataTableColumnHeader column={column} title="Rate (USD / 1M Token)" />
         ),
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("base_cost"));

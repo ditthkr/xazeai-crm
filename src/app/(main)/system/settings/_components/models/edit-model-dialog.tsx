@@ -73,7 +73,7 @@ function EditModelForm({ model, onSuccess }: { model: SystemModel; onSuccess: ()
 
             <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="base_cost" className="text-right">
-                    Base Cost
+                    Rate (USD / 1M Token)
                 </Label>
                 <Input
                     id="base_cost"
