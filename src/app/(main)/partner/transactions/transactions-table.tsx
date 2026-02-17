@@ -12,12 +12,7 @@ export function TransactionsTable({ data }: { data: PartnerTransaction[] }) {
     const table = useDataTableInstance({
         data,
         columns: transactionColumns,
-        searchKey: "reference_id", // Allow searching by reference ID
-        searchPlaceholder: "Filter reference IDs...",
-        paginationState: {
-            pageIndex: 0,
-            pageSize: 10,
-        },
+        defaultPageSize: 10,
     });
 
     const handleWalletIdChange = (value: string) => {

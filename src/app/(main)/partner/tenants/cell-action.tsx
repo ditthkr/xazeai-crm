@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { MoreHorizontal, CreditCard, Key, Pencil } from "lucide-react";
 

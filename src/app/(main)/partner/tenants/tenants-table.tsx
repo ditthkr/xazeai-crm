@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from "react";
 import { PartnerTenant, PartnerModel } from "@/app/actions/partner";
 import { DataTable } from "@/components/data-table/data-table";
