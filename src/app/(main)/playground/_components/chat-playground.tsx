@@ -26,6 +26,7 @@ import {
     getChatHistory,
     type ChatSession,
 } from "@/app/actions/playground";
+import { ChatSessionMetadataDialog } from "./chat-session-metadata-dialog";
 
 interface Message {
     role: "user" | "assistant" | "system" | "bot";
@@ -44,6 +45,7 @@ export function ChatPlayground() {
     const [kbID, setKbID] = useState("");
     const [knowledgeBases, setKnowledgeBases] = useState<{ id: string; name: string }[]>([]);
     const [sessions, setSessions] = useState<ChatSession[]>([]);
+    const [isMetadataOpen, setIsMetadataOpen] = useState(false);
 
     // Chat State
     const [sessionID, setSessionID] = useState<string | null>(null);
@@ -456,12 +458,24 @@ export function ChatPlayground() {
                                 </SelectContent>
                             </Select>
                         </div>
-                        <Button className="w-full" variant="outline" onClick={() => toast.success("Configuration saved (in memory)")}>
-                            Update Config
+                        <Button
+                            variant="outline"
+                            className="w-full"
+                            onClick={() => setIsMetadataOpen(true)}
+                            disabled={!sessionID}
+                        >
+                            Edit Session Metadata
                         </Button>
                     </CardContent>
                 </Card>
             </div>
+
+            <ChatSessionMetadataDialog
+                open={isMetadataOpen}
+                onOpenChange={setIsMetadataOpen}
+                sessionId={sessionID || ""}
+                apiKey={apiKey || ""}
+            />
         </div>
     );
 }

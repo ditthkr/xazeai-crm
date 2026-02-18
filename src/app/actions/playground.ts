@@ -460,6 +460,7 @@ export interface ChatSession {
     id: string;
     tenant_id: string;
     knowledge_base_id: string;
+    metadata?: Record<string, any>;
     created_at: string;
     updated_at: string;
 }
@@ -475,6 +476,47 @@ export async function getChatSessions(apiKey: string): Promise<ChatSession[]> {
     } catch (error) {
         console.error("Failed to fetch chat sessions", error);
         return [];
+    }
+}
+
+export async function getChatSession(apiKey: string, sessionId: string): Promise<ChatSession | null> {
+    try {
+        const res = await fetch(`${API_BASE_URL}/chat/sessions/${sessionId}`, {
+            headers: { "X-API-Key": apiKey },
+            cache: "no-store",
+        });
+
+        if (!res.ok) return null;
+
+        const json = await res.json();
+        return json.data;
+    } catch (error) {
+        console.error("Failed to fetch chat session", error);
+        return null;
+    }
+}
+
+export async function updateChatSession(
+    apiKey: string,
+    sessionId: string,
+    data: { metadata: Record<string, any> }
+): Promise<{ success?: boolean; error?: string }> {
+    try {
+        const res = await fetch(`${API_BASE_URL}/chat/sessions/${sessionId}`, {
+            method: "PATCH",
+            headers: apiHeaders(apiKey),
+            body: JSON.stringify(data),
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            return { error: errorData.error || "Failed to update session" };
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to update session", error);
+        return { error: "An unexpected error occurred" };
     }
 }
 
