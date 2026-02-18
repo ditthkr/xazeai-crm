@@ -21,6 +21,22 @@ export const modelColumns: ColumnDef<SystemModel>[] = [
                 </div>
             );
         },
+        meta: {
+            headerStyle: { width: "25%" },
+        },
+    },
+    {
+        accessorKey: "embedding_model",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Embedding Model" />
+        ),
+        cell: ({ row }) => {
+            const val = row.getValue("embedding_model") as string;
+            return <div className="text-muted-foreground">{val || "-"}</div>;
+        },
+        meta: {
+            headerStyle: { width: "25%" },
+        },
     },
 
     {
@@ -30,7 +46,7 @@ export const modelColumns: ColumnDef<SystemModel>[] = [
         ),
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("base_cost"));
-            return <div>{formatCurrency(amount, { minimumFractionDigits: 6 })}</div>;
+            return <div>{formatCurrency(amount)}</div>;
         },
     },
     {

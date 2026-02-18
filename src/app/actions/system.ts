@@ -285,14 +285,16 @@ export async function updateModel(prevState: ActionState, formData: FormData): P
 
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;
-    const base_cost = parseFloat(formData.get("base_cost") as string);
+    const base_cost = formData.get("base_cost") as string; // Keep as string
     const enabled = formData.get("enabled") === "on";
+    const embedding_model = formData.get("embedding_model") as string;
+
+    if (!id) return { error: "Model ID is required" };
 
     try {
-        const payload: any = { name, base_cost, enabled };
-        if (id) payload.id = id;
+        const payload: any = { name, base_cost, enabled, embedding_model };
 
-        const response = await fetch(`${API_BASE_URL}/system/config/models`, {
+        const response = await fetch(`${API_BASE_URL}/system/config/models/${id}`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,

@@ -11,7 +11,12 @@ import { CreateTenantDialog } from "./create-tenant-dialog";
 
 import { Input } from "@/components/ui/input";
 
-export function TenantsTable({ data, models }: { data: PartnerTenant[]; models: PartnerModel[] }) {
+export function TenantsTable(props: {
+    data: PartnerTenant[];
+    models: PartnerModel[];
+    defaultMarkupRate?: number;
+}) {
+    const { data, models } = props;
     const columns = useMemo(() => getColumns(models), [models]);
 
     const table = useDataTableInstance({
@@ -36,7 +41,10 @@ export function TenantsTable({ data, models }: { data: PartnerTenant[]; models: 
                 </div>
                 <div className="flex items-center gap-2">
                     <DataTableViewOptions table={table} />
-                    <CreateTenantDialog models={models} />
+                    <CreateTenantDialog
+                        models={models}
+                        defaultMarkupRate={props.defaultMarkupRate}
+                    />
                 </div>
             </div>
             <div className="rounded-md border">

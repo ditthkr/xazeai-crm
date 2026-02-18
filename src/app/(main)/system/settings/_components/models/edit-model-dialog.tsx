@@ -68,36 +68,84 @@ function EditModelForm({ model, onSuccess }: { model: SystemModel; onSuccess: ()
     }, [state, onSuccess, router]);
 
     return (
-        <form action={formAction} className="grid gap-4 py-4">
-            <input type="hidden" name="name" value={model.name} />
+        <form action={formAction} className="grid gap-6 py-4">
             <input type="hidden" name="id" value={model.id} />
 
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="base_cost" className="text-right">
-                    Rate (USD / 1M Token)
-                </Label>
-                <Input
-                    id="base_cost"
-                    name="base_cost"
-                    defaultValue={model.base_cost}
-                    className="col-span-3"
-                    step="0.00001"
-                    type="number"
-                />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="enabled" className="text-right">
-                    Enabled
-                </Label>
-                <div className="col-span-3 flex items-center space-x-2">
-                    <Switch id="enabled" name="enabled" defaultChecked={model.enabled} />
-                    <Label htmlFor="enabled">Active</Label>
+            <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs text-primary">1</span>
+                    Model Metadata
+                </div>
+                <div className="grid gap-4 rounded-lg border p-4">
+                    <div className="grid gap-2">
+                        <Label className="text-muted-foreground text-xs">Provider</Label>
+                        <div className="flex h-10 w-full items-center rounded-md border bg-muted/50 px-3 py-2 text-sm font-medium capitalize text-muted-foreground">
+                            {model.provider}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="name">Display Name</Label>
+                            <Input
+                                id="name"
+                                name="name"
+                                defaultValue={model.name}
+                                className="font-medium"
+                                placeholder="e.g. GPT-4 Turbo"
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="embedding_model" className="text-muted-foreground text-xs">Embedding Model</Label>
+                            <Input
+                                id="embedding_model"
+                                name="embedding_model"
+                                defaultValue={model.embedding_model || ""}
+                                placeholder="None"
+                                className="h-10 text-sm"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <DialogFooter>
-                <Button type="submit" disabled={isPending}>
+
+            <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs text-primary">2</span>
+                    Pricing & Configuration
+                </div>
+                <div className="grid gap-4 rounded-lg border bg-muted/20 p-4">
+                    <div className="grid gap-2">
+                        <Label htmlFor="base_cost">Base Rate (USD / 1M Token)</Label>
+                        <div className="relative">
+                            <Input
+                                id="base_cost"
+                                name="base_cost"
+                                defaultValue={model.base_cost}
+                                type="number"
+                                step="0.01"
+                            />
+                        </div>
+                        <p className="text-[0.8rem] text-muted-foreground">
+                            Define the base cost for this model per million tokens.
+                        </p>
+                    </div>
+
+                    <div className="flex items-center justify-between rounded-lg border bg-background p-3 shadow-sm">
+                        <div className="space-y-0.5">
+                            <Label htmlFor="enabled" className="text-base cursor-pointer">Active Status</Label>
+                            <p className="text-[0.8rem] text-muted-foreground">
+                                Enable availability for all tenants
+                            </p>
+                        </div>
+                        <Switch id="enabled" name="enabled" defaultChecked={model.enabled} />
+                    </div>
+                </div>
+            </div>
+
+            <DialogFooter className="pt-2">
+                <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
                     {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Save changes
+                    Save Changes
                 </Button>
             </DialogFooter>
         </form>

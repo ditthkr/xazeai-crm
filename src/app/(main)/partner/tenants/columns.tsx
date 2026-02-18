@@ -51,7 +51,7 @@ export const getColumns = (models: PartnerModel[]): ColumnDef<PartnerTenant>[] =
         ),
         cell: ({ row }) => {
             const rate = parseFloat(row.original.rate.final_rate);
-            return <div className="text-right font-medium">{rate.toFixed(4)}</div>;
+            return <div className="text-right font-medium">{formatCurrency(rate)}</div>;
         },
     },
     {
