@@ -237,7 +237,7 @@ export interface SystemModel {
     name: string;
     base_cost: string;
     enabled: boolean;
-    type: string;
+    embedding_model?: string;
     provider: string;
     updated_at: string;
 }
@@ -283,18 +283,22 @@ export async function updateModel(prevState: ActionState, formData: FormData): P
 
     if (!token) return { error: "Unauthorized" };
 
+    const id = formData.get("id") as string;
     const name = formData.get("name") as string;
     const base_cost = parseFloat(formData.get("base_cost") as string);
     const enabled = formData.get("enabled") === "on";
 
     try {
+        const payload: any = { name, base_cost, enabled };
+        if (id) payload.id = id;
+
         const response = await fetch(`${API_BASE_URL}/system/config/models`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name, base_cost, enabled }),
+            body: JSON.stringify(payload),
         });
 
         const json = await response.json();

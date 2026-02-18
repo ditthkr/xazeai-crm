@@ -70,6 +70,7 @@ function EditModelForm({ model, onSuccess }: { model: SystemModel; onSuccess: ()
     return (
         <form action={formAction} className="grid gap-4 py-4">
             <input type="hidden" name="name" value={model.name} />
+            <input type="hidden" name="id" value={model.id} />
 
             <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="base_cost" className="text-right">

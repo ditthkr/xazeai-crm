@@ -22,19 +22,7 @@ export const modelColumns: ColumnDef<SystemModel>[] = [
             );
         },
     },
-    {
-        accessorKey: "type",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Type" />
-        ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex items-center">
-                    <span className="capitalize">{row.getValue("type")}</span>
-                </div>
-            );
-        },
-    },
+
     {
         accessorKey: "base_cost",
         header: ({ column }) => (
